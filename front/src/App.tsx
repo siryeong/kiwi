@@ -1,9 +1,11 @@
-function App() {
+import NavigationBar from '@/components/material/NavigationBar.tsx';
+
+const App = () => {
   return (
     <>
-      <div>kiwi</div>
+      <NavigationBar />
     </>
   );
-}
+};
 
 export default App;
