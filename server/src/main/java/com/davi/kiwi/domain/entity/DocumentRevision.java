@@ -4,6 +4,7 @@ public class DocumentRevision {
 
     private String id;
     private Document document;
+    private String title;
     private String content;
     private Member publisher;
     private long publishTimestamp;
