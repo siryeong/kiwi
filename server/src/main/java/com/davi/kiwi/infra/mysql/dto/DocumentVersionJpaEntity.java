@@ -2,8 +2,12 @@ package com.davi.kiwi.infra.mysql.dto;
 
 import com.davi.kiwi.domain.entity.DocumentVersion;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import java.util.Optional;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,7 +22,8 @@ import lombok.NoArgsConstructor;
 public class DocumentVersionJpaEntity {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
     private String documentId;
     private String title;
     private String content;
@@ -26,8 +31,12 @@ public class DocumentVersionJpaEntity {
     private long publishTimestamp;
 
     public static DocumentVersionJpaEntity from(DocumentVersion documentVersion) {
+        UUID uuid = Optional.ofNullable(documentVersion.getId())
+            .map(UUID::fromString)
+            .orElse(null);
+
         return DocumentVersionJpaEntity.builder()
-            .id(documentVersion.getId())
+            .id(uuid)
             .documentId(documentVersion.getDocumentId())
             .title(documentVersion.getTitle())
             .content(documentVersion.getContent())
@@ -38,7 +47,7 @@ public class DocumentVersionJpaEntity {
 
     public DocumentVersion toDomain() {
         return DocumentVersion.builder()
-            .id(id)
+            .id(id.toString())
             .documentId(documentId)
             .title(title)
             .content(content)
