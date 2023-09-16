@@ -3,7 +3,7 @@ package com.davi.kiwi.domain.entity;
 public class SpaceMember {
 
     private String id;
-    private Space space;
-    private Member member;
+    private String spaceId;
+    private String memberId;
     private SpaceMemberRole role;
 }

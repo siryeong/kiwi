@@ -1,11 +1,18 @@
 package com.davi.kiwi.domain.entity;
 
-import java.util.List;
+import lombok.Builder;
+import lombok.Getter;
 
+@Getter
+@Builder
 public class Document {
 
     private String id;
-    private Space space;
-    private Document parent;
-    private List<DocumentVersion> versions;
+    private String spaceId;
+    private String parentId;
+    private String latestVersionId;
+
+    public void publish(DocumentVersion documentVersion) {
+        this.latestVersionId = documentVersion.getId();
+    }
 }
