@@ -4,7 +4,7 @@ import com.davi.kiwi.domain.entity.DocumentVersion;
 
 public record DocumentVersionRequest(String documentId, String title, String content, String publisherId) {
 
-    public DocumentVersion toEntity() {
+    public DocumentVersion toDomain() {
         return DocumentVersion.builder()
             .documentId(documentId)
             .title(title)

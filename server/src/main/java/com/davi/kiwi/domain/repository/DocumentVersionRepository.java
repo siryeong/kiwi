@@ -9,5 +9,5 @@ public interface DocumentVersionRepository {
 
     void delete(DocumentVersion documentVersion);
 
-    Optional<DocumentVersion> findById(Long id);
+    Optional<DocumentVersion> findById(String id);
 }

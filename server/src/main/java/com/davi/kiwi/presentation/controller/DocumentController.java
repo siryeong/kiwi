@@ -21,14 +21,14 @@ public class DocumentController {
 
     @PostMapping
     public void create(@RequestBody DocumentRequest request) {
-        Document document = request.toEntity();
+        Document document = request.toDomain();
         documentService.create(document);
     }
 
     @PostMapping("/{documentId}/versions")
     public void publish(@PathVariable String documentId, @RequestBody DocumentVersionRequest request) {
         Document document = documentService.findById(documentId);
-        DocumentVersion documentVersion = request.toEntity();
+        DocumentVersion documentVersion = request.toDomain();
         documentService.publish(document, documentVersion);
     }
 

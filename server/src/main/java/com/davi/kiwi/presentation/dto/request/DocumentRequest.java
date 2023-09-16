@@ -4,7 +4,7 @@ import com.davi.kiwi.domain.entity.Document;
 
 public record DocumentRequest(String spaceId, String parentId) {
 
-    public Document toEntity() {
+    public Document toDomain() {
         return Document.builder()
             .spaceId(spaceId)
             .parentId(parentId)
