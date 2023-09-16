@@ -9,5 +9,5 @@ public interface DocumentRepository {
 
     void delete(Document document);
 
-    Optional<Document> findById(Long id);
+    Optional<Document> findById(String id);
 }

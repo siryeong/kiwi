@@ -13,4 +13,8 @@ public class DocumentVersion {
     private String content;
     private String publisherId;
     private long publishTimestamp;
+
+    public void publish(long publishTimestamp) {
+        this.publishTimestamp = publishTimestamp;
+    }
 }
