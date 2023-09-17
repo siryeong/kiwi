@@ -9,5 +9,5 @@ public interface MemberRepository {
 
     void delete(Member member);
 
-    Optional<Member> findById(Long id);
+    Optional<Member> findById(String id);
 }

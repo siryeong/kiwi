@@ -24,23 +24,25 @@ public class DocumentVersionJpaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    private String documentId;
+    private UUID documentId;
     private String title;
     private String content;
-    private String publisherId;
+    private UUID publisherId;
     private long publishTimestamp;
 
     public static DocumentVersionJpaEntity from(DocumentVersion documentVersion) {
         UUID uuid = Optional.ofNullable(documentVersion.getId())
             .map(UUID::fromString)
             .orElse(null);
+        UUID documentId = UUID.fromString(documentVersion.getDocumentId());
+        UUID publisherId = UUID.fromString(documentVersion.getPublisherId());
 
         return DocumentVersionJpaEntity.builder()
             .id(uuid)
-            .documentId(documentVersion.getDocumentId())
+            .documentId(documentId)
             .title(documentVersion.getTitle())
             .content(documentVersion.getContent())
-            .publisherId(documentVersion.getPublisherId())
+            .publisherId(publisherId)
             .publishTimestamp(documentVersion.getPublishTimestamp())
             .build();
     }
@@ -48,10 +50,10 @@ public class DocumentVersionJpaEntity {
     public DocumentVersion toDomain() {
         return DocumentVersion.builder()
             .id(id.toString())
-            .documentId(documentId)
+            .documentId(documentId.toString())
             .title(title)
             .content(content)
-            .publisherId(publisherId)
+            .publisherId(publisherId.toString())
             .publishTimestamp(publishTimestamp)
             .build();
     }

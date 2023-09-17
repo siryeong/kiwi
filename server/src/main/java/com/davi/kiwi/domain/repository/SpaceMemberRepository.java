@@ -9,5 +9,5 @@ public interface SpaceMemberRepository {
 
     void delete(SpaceMember spaceMember);
 
-    Optional<SpaceMember> findById(Long id);
+    Optional<SpaceMember> findById(String id);
 }

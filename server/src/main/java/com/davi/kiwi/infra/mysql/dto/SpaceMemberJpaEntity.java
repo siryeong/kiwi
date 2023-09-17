@@ -1,6 +1,7 @@
 package com.davi.kiwi.infra.mysql.dto;
 
-import com.davi.kiwi.domain.entity.Document;
+import com.davi.kiwi.domain.entity.SpaceMember;
+import com.davi.kiwi.domain.entity.SpaceMemberRole;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,38 +19,37 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "document")
-public class DocumentJpaEntity {
+@Table(name = "space_member")
+public class SpaceMemberJpaEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private UUID spaceId;
-    private UUID parentId;
-    private UUID latestVersionId;
+    private UUID memberId;
+    private SpaceMemberRole role;
 
-    public static DocumentJpaEntity from(Document document) {
-        UUID id = Optional.ofNullable(document.getId())
+    public static SpaceMemberJpaEntity from(SpaceMember spaceMember) {
+        UUID id = Optional.ofNullable(spaceMember.getId())
             .map(UUID::fromString)
             .orElse(null);
-        UUID spaceId = UUID.fromString(document.getSpaceId());
-        UUID parentId = UUID.fromString(document.getParentId());
-        UUID latestVersionId = UUID.fromString(document.getLatestVersionId());
+        UUID spaceId = UUID.fromString(spaceMember.getSpaceId());
+        UUID memberId = UUID.fromString(spaceMember.getMemberId());
 
-        return DocumentJpaEntity.builder()
+        return SpaceMemberJpaEntity.builder()
             .id(id)
             .spaceId(spaceId)
-            .parentId(parentId)
-            .latestVersionId(latestVersionId)
+            .memberId(memberId)
+            .role(spaceMember.getRole())
             .build();
     }
 
-    public Document toDomain() {
-        return Document.builder()
+    public SpaceMember toDomain() {
+        return SpaceMember.builder()
             .id(id.toString())
             .spaceId(spaceId.toString())
-            .parentId(parentId.toString())
-            .latestVersionId(latestVersionId.toString())
+            .memberId(memberId.toString())
+            .role(role)
             .build();
     }
 }

@@ -9,5 +9,5 @@ public interface SpaceRepository {
 
     void delete(Space space);
 
-    Optional<Space> findById(Long id);
+    Optional<Space> findById(String id);
 }

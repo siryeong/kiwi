@@ -1,9 +1,10 @@
-package com.davi.kiwi.infra.mysql.repository;
+package com.davi.kiwi.infra.mysql.repository.document;
 
 import com.davi.kiwi.domain.entity.Document;
 import com.davi.kiwi.domain.repository.DocumentRepository;
 import com.davi.kiwi.infra.mysql.dto.DocumentJpaEntity;
 import java.util.Optional;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -21,14 +22,16 @@ public class DocumentRepositoryImpl implements DocumentRepository {
 
     @Override
     public void delete(Document document) {
-        DocumentJpaEntity documentJpaEntity = documentJpaRepository.findById(document.getId())
+        UUID uuid = UUID.fromString(document.getId());
+        DocumentJpaEntity documentJpaEntity = documentJpaRepository.findById(uuid)
             .orElseThrow();
         documentJpaRepository.delete(documentJpaEntity);
     }
 
     @Override
     public Optional<Document> findById(String id) {
-        return documentJpaRepository.findById(id)
+        UUID uuid = UUID.fromString(id);
+        return documentJpaRepository.findById(uuid)
             .map(DocumentJpaEntity::toDomain);
     }
 }

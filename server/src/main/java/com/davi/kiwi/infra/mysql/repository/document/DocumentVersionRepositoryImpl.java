@@ -1,9 +1,10 @@
-package com.davi.kiwi.infra.mysql.repository;
+package com.davi.kiwi.infra.mysql.repository.document;
 
 import com.davi.kiwi.domain.entity.DocumentVersion;
 import com.davi.kiwi.domain.repository.DocumentVersionRepository;
 import com.davi.kiwi.infra.mysql.dto.DocumentVersionJpaEntity;
 import java.util.Optional;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -21,14 +22,15 @@ public class DocumentVersionRepositoryImpl implements DocumentVersionRepository 
 
     @Override
     public void delete(DocumentVersion documentVersion) {
-        DocumentVersionJpaEntity documentVersionJpaEntity = documentVersionJpaRepository.findById(documentVersion.getId())
+        UUID uuid = UUID.fromString(documentVersion.getId());
+        DocumentVersionJpaEntity documentVersionJpaEntity = documentVersionJpaRepository.findById(uuid)
             .orElseThrow();
         documentVersionJpaRepository.delete(documentVersionJpaEntity);
     }
 
     @Override
     public Optional<DocumentVersion> findById(String id) {
-        return documentVersionJpaRepository.findById(id)
+        return documentVersionJpaRepository.findById(UUID.fromString(id))
             .map(DocumentVersionJpaEntity::toDomain);
     }
 }

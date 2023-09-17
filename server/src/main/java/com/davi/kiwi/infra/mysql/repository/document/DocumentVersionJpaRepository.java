@@ -1,0 +1,9 @@
+package com.davi.kiwi.infra.mysql.repository.document;
+
+import com.davi.kiwi.infra.mysql.dto.DocumentVersionJpaEntity;
+import java.util.UUID;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface DocumentVersionJpaRepository extends JpaRepository<DocumentVersionJpaEntity, UUID> {
+
+}
