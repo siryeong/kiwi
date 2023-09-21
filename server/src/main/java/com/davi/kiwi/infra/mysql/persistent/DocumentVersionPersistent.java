@@ -1,4 +1,4 @@
-package com.davi.kiwi.infra.mysql.dto;
+package com.davi.kiwi.infra.mysql.persistent;
 
 import com.davi.kiwi.domain.entity.DocumentVersion;
 import jakarta.persistence.Entity;
@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name = "document_version")
-public class DocumentVersionJpaEntity {
+public class DocumentVersionPersistent {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -30,14 +30,14 @@ public class DocumentVersionJpaEntity {
     private UUID publisherId;
     private long publishTimestamp;
 
-    public static DocumentVersionJpaEntity from(DocumentVersion documentVersion) {
+    public static DocumentVersionPersistent from(DocumentVersion documentVersion) {
         UUID uuid = Optional.ofNullable(documentVersion.getId())
             .map(UUID::fromString)
             .orElse(null);
         UUID documentId = UUID.fromString(documentVersion.getDocumentId());
         UUID publisherId = UUID.fromString(documentVersion.getPublisherId());
 
-        return DocumentVersionJpaEntity.builder()
+        return DocumentVersionPersistent.builder()
             .id(uuid)
             .documentId(documentId)
             .title(documentVersion.getTitle())

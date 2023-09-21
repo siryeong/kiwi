@@ -1,4 +1,4 @@
-package com.davi.kiwi.infra.mysql.dto;
+package com.davi.kiwi.infra.mysql.persistent;
 
 import com.davi.kiwi.domain.entity.Member;
 import jakarta.persistence.Entity;
@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name = "member")
-public class MemberJpaEntity {
+public class MemberPersistent {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -28,12 +28,12 @@ public class MemberJpaEntity {
     private String name;
     private String password;
 
-    public static MemberJpaEntity from(Member member) {
+    public static MemberPersistent from(Member member) {
         UUID id = Optional.ofNullable(member.getId())
             .map(UUID::fromString)
             .orElse(null);
 
-        return MemberJpaEntity.builder()
+        return MemberPersistent.builder()
             .id(id)
             .email(member.getEmail())
             .name(member.getName())

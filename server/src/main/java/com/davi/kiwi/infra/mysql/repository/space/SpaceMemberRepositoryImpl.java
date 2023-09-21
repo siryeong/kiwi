@@ -2,7 +2,7 @@ package com.davi.kiwi.infra.mysql.repository.space;
 
 import com.davi.kiwi.domain.entity.SpaceMember;
 import com.davi.kiwi.domain.repository.SpaceMemberRepository;
-import com.davi.kiwi.infra.mysql.dto.SpaceMemberJpaEntity;
+import com.davi.kiwi.infra.mysql.persistent.SpaceMemberPersistent;
 import java.util.Optional;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -16,22 +16,22 @@ public class SpaceMemberRepositoryImpl implements SpaceMemberRepository {
 
     @Override
     public void save(SpaceMember spaceMember) {
-        SpaceMemberJpaEntity spaceMemberJpaEntity = SpaceMemberJpaEntity.from(spaceMember);
-        spaceMemberJpaRepository.save(spaceMemberJpaEntity);
+        SpaceMemberPersistent spaceMemberPersistent = SpaceMemberPersistent.from(spaceMember);
+        spaceMemberJpaRepository.save(spaceMemberPersistent);
     }
 
     @Override
     public void delete(SpaceMember spaceMember) {
         UUID uuid = UUID.fromString(spaceMember.getId());
-        SpaceMemberJpaEntity spaceMemberJpaEntity = spaceMemberJpaRepository.findById(uuid)
+        SpaceMemberPersistent spaceMemberPersistent = spaceMemberJpaRepository.findById(uuid)
             .orElseThrow();
-        spaceMemberJpaRepository.delete(spaceMemberJpaEntity);
+        spaceMemberJpaRepository.delete(spaceMemberPersistent);
     }
 
     @Override
     public Optional<SpaceMember> findById(String id) {
         UUID uuid = UUID.fromString(id);
         return spaceMemberJpaRepository.findById(uuid)
-            .map(SpaceMemberJpaEntity::toDomain);
+            .map(SpaceMemberPersistent::toDomain);
     }
 }

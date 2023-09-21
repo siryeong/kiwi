@@ -2,7 +2,7 @@ package com.davi.kiwi.infra.mysql.repository.space;
 
 import com.davi.kiwi.domain.entity.Space;
 import com.davi.kiwi.domain.repository.SpaceRepository;
-import com.davi.kiwi.infra.mysql.dto.SpaceJpaEntity;
+import com.davi.kiwi.infra.mysql.persistent.SpacePersistent;
 import java.util.Optional;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -16,23 +16,23 @@ public class SpaceRepositoryImpl implements SpaceRepository {
 
     @Override
     public void save(Space space) {
-        SpaceJpaEntity spaceJpaEntity = SpaceJpaEntity.from(space);
-        spaceJpaRepository.save(spaceJpaEntity);
+        SpacePersistent spacePersistent = SpacePersistent.from(space);
+        spaceJpaRepository.save(spacePersistent);
     }
 
     @Override
     public void delete(Space space) {
         UUID uuid = UUID.fromString(space.getId());
-        SpaceJpaEntity spaceJpaEntity = spaceJpaRepository.findById(uuid)
+        SpacePersistent spacePersistent = spaceJpaRepository.findById(uuid)
             .orElseThrow();
-        spaceJpaRepository.delete(spaceJpaEntity);
+        spaceJpaRepository.delete(spacePersistent);
     }
 
     @Override
     public Optional<Space> findById(String id) {
         UUID uuid = UUID.fromString(id);
         return spaceJpaRepository.findById(uuid)
-            .map(SpaceJpaEntity::toDomain);
+            .map(SpacePersistent::toDomain);
     }
 
 }
