@@ -1,7 +1,10 @@
 package com.davi.kiwi.infra.mysql.persistent;
 
 import com.davi.kiwi.domain.entity.Member;
+import com.davi.kiwi.domain.entity.MemberRole;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -27,6 +30,8 @@ public class MemberPersistent {
     private String email;
     private String name;
     private String password;
+    @Enumerated(EnumType.STRING)
+    private MemberRole role;
     private long joinTimestamp;
     private long lastLoginTimestamp;
 
@@ -40,6 +45,7 @@ public class MemberPersistent {
             member.getEmail(),
             member.getName(),
             member.getPassword(),
+            member.getRole(),
             member.getJoinTimestamp(),
             member.getLastLoginTimestamp()
         );
@@ -51,6 +57,7 @@ public class MemberPersistent {
             email,
             name,
             password,
+            role,
             joinTimestamp,
             lastLoginTimestamp
         );

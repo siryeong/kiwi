@@ -12,15 +12,17 @@ public class Member {
     private String email;
     private String name;
     private String password;
+    private MemberRole role;
     private long joinTimestamp;
     private long lastLoginTimestamp;
 
     @Builder
-    public Member(String id, String email, String name, String password, long joinTimestamp, long lastLoginTimestamp) {
+    public Member(String id, String email, String name, String password, MemberRole role, long joinTimestamp, long lastLoginTimestamp) {
         this.id = id;
         this.email = email;
         this.name = name;
         this.password = password;
+        this.role = role;
         this.joinTimestamp = joinTimestamp;
         this.lastLoginTimestamp = lastLoginTimestamp;
     }
