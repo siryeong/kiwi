@@ -27,26 +27,32 @@ public class MemberPersistent {
     private String email;
     private String name;
     private String password;
+    private long joinTimestamp;
+    private long lastLoginTimestamp;
 
     public static MemberPersistent from(Member member) {
         UUID id = Optional.ofNullable(member.getId())
             .map(UUID::fromString)
             .orElse(null);
 
-        return MemberPersistent.builder()
-            .id(id)
-            .email(member.getEmail())
-            .name(member.getName())
-            .password(member.getPassword())
-            .build();
+        return new MemberPersistent(
+            id,
+            member.getEmail(),
+            member.getName(),
+            member.getPassword(),
+            member.getJoinTimestamp(),
+            member.getLastLoginTimestamp()
+        );
     }
 
     public Member toDomain() {
-        return Member.builder()
-            .id(id.toString())
-            .email(email)
-            .name(name)
-            .password(password)
-            .build();
+        return new Member(
+            id.toString(),
+            email,
+            name,
+            password,
+            joinTimestamp,
+            lastLoginTimestamp
+        );
     }
 }
