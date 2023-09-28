@@ -1,4 +1,4 @@
-import { TopNavigationBar } from '@/components/material/TopNavigationBar.tsx';
+import { TopNavigationBar } from '@/components/tailwind/TopNavigationBar.tsx';
 
 export const Header = () => {
   return (
