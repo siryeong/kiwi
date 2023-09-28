@@ -1,9 +1,15 @@
-import NavigationBar from '@/components/material/NavigationBar.tsx';
+import { Route, Routes } from 'react-router-dom';
+import { Home } from '@/pages/Home.tsx';
+import { PageLayout } from '@/components/layout/PageLayout.tsx';
 
 const App = () => {
   return (
     <>
-      <NavigationBar />
+      <Routes>
+        <Route path="/" element={<PageLayout />}>
+          <Route path="home" element={<Home />} />
+        </Route>
+      </Routes>
     </>
   );
 };
