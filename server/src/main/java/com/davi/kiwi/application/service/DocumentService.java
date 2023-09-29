@@ -27,7 +27,7 @@ public class DocumentService {
         documentRepository.save(document);
     }
 
-    public Document findById(String documentId) {
-        return documentRepository.findById(documentId).orElseThrow();
+    public Document getById(String documentId) {
+        return documentRepository.findById(documentId).orElseThrow(() -> new RuntimeException("Document not found"));
     }
 }

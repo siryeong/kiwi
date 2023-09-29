@@ -27,7 +27,7 @@ public class DocumentController {
 
     @PostMapping("/{documentId}/versions")
     public void publish(@PathVariable String documentId, @RequestBody DocumentVersionRequest request) {
-        Document document = documentService.findById(documentId);
+        Document document = documentService.getById(documentId);
         DocumentVersion documentVersion = request.toDomain();
         documentService.publish(document, documentVersion);
     }
