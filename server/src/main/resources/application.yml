@@ -23,7 +23,7 @@ spring:
     database-platform: org.hibernate.dialect.MySQL8Dialect
 
 jwt:
-  secret-key: leu8xPUR967rEHupcyAby68ZYbKoFNES
+  secret-key: KQEHpNA70iV6JDbUXytSI2y7mzjm1eeaXHTxvSHvKbHfaHbqwMZ6jmy6XftsgayN
   token-validity-days: 7
 ---
 spring:
