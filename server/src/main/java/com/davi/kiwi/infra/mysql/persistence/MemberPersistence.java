@@ -2,6 +2,7 @@ package com.davi.kiwi.infra.mysql.persistence;
 
 import com.davi.kiwi.domain.entity.Member;
 import com.davi.kiwi.domain.entity.MemberRole;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -27,8 +28,11 @@ public class MemberPersistence {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+    @Column(nullable = false, unique = true)
     private String email;
+    @Column(unique = true)
     private String name;
+    @Column(nullable = false)
     private String password;
     @Enumerated(EnumType.STRING)
     private MemberRole role;
