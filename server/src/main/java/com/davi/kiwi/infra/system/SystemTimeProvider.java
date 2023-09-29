@@ -7,7 +7,12 @@ import org.springframework.stereotype.Component;
 public class SystemTimeProvider implements TimeProvider {
 
     @Override
-    public long currentTimestamp() {
+    public long currentTimestampMillis() {
         return System.currentTimeMillis();
+    }
+
+    @Override
+    public long daysToMillis(long days) {
+        return 1000 * 60 * 60 * 24 * days;
     }
 }

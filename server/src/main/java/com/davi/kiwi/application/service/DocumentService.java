@@ -18,7 +18,7 @@ public class DocumentService {
 
     public void publish(Document document, DocumentVersion documentVersion) {
         document.publish(documentVersion);
-        documentVersion.publish(timeProvider.currentTimestamp());
+        documentVersion.publish(timeProvider.currentTimestampMillis());
         documentVersionRepository.save(documentVersion);
         documentRepository.save(document);
     }
