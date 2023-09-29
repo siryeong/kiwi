@@ -1,6 +1,7 @@
 package com.davi.kiwi.domain.repository;
 
 import com.davi.kiwi.domain.entity.Space;
+import java.util.List;
 import java.util.Optional;
 
 public interface SpaceRepository {
@@ -10,4 +11,6 @@ public interface SpaceRepository {
     void delete(Space space);
 
     Optional<Space> findById(String id);
+
+    List<Space> findAll();
 }

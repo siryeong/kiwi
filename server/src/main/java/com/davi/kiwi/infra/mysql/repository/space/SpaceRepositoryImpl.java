@@ -3,6 +3,7 @@ package com.davi.kiwi.infra.mysql.repository.space;
 import com.davi.kiwi.domain.entity.Space;
 import com.davi.kiwi.domain.repository.SpaceRepository;
 import com.davi.kiwi.infra.mysql.persistence.SpacePersistence;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +34,14 @@ public class SpaceRepositoryImpl implements SpaceRepository {
         UUID uuid = UUID.fromString(id);
         return spaceJpaRepository.findById(uuid)
             .map(SpacePersistence::toDomain);
+    }
+
+    @Override
+    public List<Space> findAll() {
+        return spaceJpaRepository.findAll()
+            .stream()
+            .map(SpacePersistence::toDomain)
+            .toList();
     }
 
 }
