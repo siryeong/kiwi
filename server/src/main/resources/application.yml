@@ -24,7 +24,7 @@ spring:
 
 jwt:
   secret-key: KQEHpNA70iV6JDbUXytSI2y7mzjm1eeaXHTxvSHvKbHfaHbqwMZ6jmy6XftsgayN
-  token-validity-days: 7
+  validity-days: 7
 ---
 spring:
   config:
@@ -43,4 +43,4 @@ spring:
     database-platform: org.hibernate.dialect.MySQL8Dialect
 jwt:
   secret-key: ${JWT_SECRET_KEY}
-  token-validity-days: ${JWT_TOKEN_VALIDITY_DAYS}
+  validity-days: ${JWT_VALIDITY_DAYS}

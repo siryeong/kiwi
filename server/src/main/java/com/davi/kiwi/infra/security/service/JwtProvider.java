@@ -26,7 +26,7 @@ public class JwtProvider {
 
     public JwtProvider(
         @Value("${jwt.secret-key}") String secretKey,
-        @Value("${jwt.token-validity-days}") long validityDays,
+        @Value("${jwt.validity-days}") long validityDays,
         TimeProvider timeProvider
     ) {
         this.secretKey = secretKey;

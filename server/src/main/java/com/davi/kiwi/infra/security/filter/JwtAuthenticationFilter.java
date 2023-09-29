@@ -33,14 +33,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         @NonNull FilterChain filterChain
     ) throws ServletException, IOException {
         final String authorizationHeader = request.getHeader("Authorization");
-        final String jwt;
-        final String memberId;
         if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
-        jwt = authorizationHeader.substring(7);
-        memberId = jwtProvider.extractMemberId(jwt);
+        final String jwt = authorizationHeader.substring(7);
+        final String memberId = jwtProvider.extractMemberId(jwt);
         if (memberId != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             Member member = memberService.getById(memberId);
             UserDetails memberDetails = memberDetailsService.loadUserByUsername(memberId);
