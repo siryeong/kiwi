@@ -1,4 +1,4 @@
-package com.davi.kiwi.infra.mysql.persistent;
+package com.davi.kiwi.infra.mysql.persistence;
 
 import com.davi.kiwi.domain.entity.Space;
 import jakarta.persistence.Entity;
@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name = "space")
-public class SpacePersistent {
+public class SpacePersistence {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -26,10 +26,10 @@ public class SpacePersistent {
     private String name;
     private String description;
 
-    public static SpacePersistent from(Space space) {
+    public static SpacePersistence from(Space space) {
         UUID id = UUID.fromString(space.getId());
 
-        return SpacePersistent.builder()
+        return SpacePersistence.builder()
             .id(id)
             .name(space.getName())
             .description(space.getDescription())

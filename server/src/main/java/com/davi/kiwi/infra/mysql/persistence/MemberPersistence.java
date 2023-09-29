@@ -1,4 +1,4 @@
-package com.davi.kiwi.infra.mysql.persistent;
+package com.davi.kiwi.infra.mysql.persistence;
 
 import com.davi.kiwi.domain.entity.Member;
 import com.davi.kiwi.domain.entity.MemberRole;
@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name = "member")
-public class MemberPersistent {
+public class MemberPersistence {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -35,12 +35,12 @@ public class MemberPersistent {
     private long joinTimestamp;
     private long lastLoginTimestamp;
 
-    public static MemberPersistent from(Member member) {
+    public static MemberPersistence from(Member member) {
         UUID id = Optional.ofNullable(member.getId())
             .map(UUID::fromString)
             .orElse(null);
 
-        return new MemberPersistent(
+        return new MemberPersistence(
             id,
             member.getEmail(),
             member.getName(),

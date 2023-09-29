@@ -1,4 +1,4 @@
-package com.davi.kiwi.infra.mysql.persistent;
+package com.davi.kiwi.infra.mysql.persistence;
 
 import com.davi.kiwi.domain.entity.SpaceMember;
 import com.davi.kiwi.domain.entity.SpaceMemberRole;
@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name = "space_member")
-public class SpaceMemberPersistent {
+public class SpaceMemberPersistence {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -32,14 +32,14 @@ public class SpaceMemberPersistent {
     @Enumerated(EnumType.STRING)
     private SpaceMemberRole role;
 
-    public static SpaceMemberPersistent from(SpaceMember spaceMember) {
+    public static SpaceMemberPersistence from(SpaceMember spaceMember) {
         UUID id = Optional.ofNullable(spaceMember.getId())
             .map(UUID::fromString)
             .orElse(null);
         UUID spaceId = UUID.fromString(spaceMember.getSpaceId());
         UUID memberId = UUID.fromString(spaceMember.getMemberId());
 
-        return SpaceMemberPersistent.builder()
+        return SpaceMemberPersistence.builder()
             .id(id)
             .spaceId(spaceId)
             .memberId(memberId)

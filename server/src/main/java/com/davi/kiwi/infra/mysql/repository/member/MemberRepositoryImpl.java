@@ -2,7 +2,7 @@ package com.davi.kiwi.infra.mysql.repository.member;
 
 import com.davi.kiwi.domain.entity.Member;
 import com.davi.kiwi.domain.repository.MemberRepository;
-import com.davi.kiwi.infra.mysql.persistent.MemberPersistent;
+import com.davi.kiwi.infra.mysql.persistence.MemberPersistence;
 import java.util.Optional;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -16,22 +16,22 @@ public class MemberRepositoryImpl implements MemberRepository {
 
     @Override
     public void save(Member member) {
-        MemberPersistent memberPersistent = MemberPersistent.from(member);
-        memberJpaRepository.save(memberPersistent);
+        MemberPersistence memberPersistence = MemberPersistence.from(member);
+        memberJpaRepository.save(memberPersistence);
     }
 
     @Override
     public void delete(Member member) {
         UUID uuid = UUID.fromString(member.getId());
-        MemberPersistent memberPersistent = memberJpaRepository.findById(uuid)
+        MemberPersistence memberPersistence = memberJpaRepository.findById(uuid)
             .orElseThrow();
-        memberJpaRepository.delete(memberPersistent);
+        memberJpaRepository.delete(memberPersistence);
     }
 
     @Override
     public Optional<Member> findById(String id) {
         UUID uuid = UUID.fromString(id);
         return memberJpaRepository.findById(uuid)
-            .map(MemberPersistent::toDomain);
+            .map(MemberPersistence::toDomain);
     }
 }

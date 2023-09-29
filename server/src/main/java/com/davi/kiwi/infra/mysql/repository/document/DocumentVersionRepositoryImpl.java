@@ -2,7 +2,7 @@ package com.davi.kiwi.infra.mysql.repository.document;
 
 import com.davi.kiwi.domain.entity.DocumentVersion;
 import com.davi.kiwi.domain.repository.DocumentVersionRepository;
-import com.davi.kiwi.infra.mysql.persistent.DocumentVersionPersistent;
+import com.davi.kiwi.infra.mysql.persistence.DocumentVersionPersistence;
 import java.util.Optional;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -16,21 +16,21 @@ public class DocumentVersionRepositoryImpl implements DocumentVersionRepository 
 
     @Override
     public void save(DocumentVersion documentVersion) {
-        DocumentVersionPersistent documentVersionPersistent = DocumentVersionPersistent.from(documentVersion);
-        documentVersionJpaRepository.save(documentVersionPersistent);
+        DocumentVersionPersistence documentVersionPersistence = DocumentVersionPersistence.from(documentVersion);
+        documentVersionJpaRepository.save(documentVersionPersistence);
     }
 
     @Override
     public void delete(DocumentVersion documentVersion) {
         UUID uuid = UUID.fromString(documentVersion.getId());
-        DocumentVersionPersistent documentVersionPersistent = documentVersionJpaRepository.findById(uuid)
+        DocumentVersionPersistence documentVersionPersistence = documentVersionJpaRepository.findById(uuid)
             .orElseThrow();
-        documentVersionJpaRepository.delete(documentVersionPersistent);
+        documentVersionJpaRepository.delete(documentVersionPersistence);
     }
 
     @Override
     public Optional<DocumentVersion> findById(String id) {
         return documentVersionJpaRepository.findById(UUID.fromString(id))
-            .map(DocumentVersionPersistent::toDomain);
+            .map(DocumentVersionPersistence::toDomain);
     }
 }

@@ -2,7 +2,7 @@ package com.davi.kiwi.infra.mysql.repository.document;
 
 import com.davi.kiwi.domain.entity.Document;
 import com.davi.kiwi.domain.repository.DocumentRepository;
-import com.davi.kiwi.infra.mysql.persistent.DocumentPersistent;
+import com.davi.kiwi.infra.mysql.persistence.DocumentPersistence;
 import java.util.Optional;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -16,22 +16,22 @@ public class DocumentRepositoryImpl implements DocumentRepository {
 
     @Override
     public void save(Document document) {
-        DocumentPersistent documentPersistent = DocumentPersistent.from(document);
-        documentJpaRepository.save(documentPersistent);
+        DocumentPersistence documentPersistence = DocumentPersistence.from(document);
+        documentJpaRepository.save(documentPersistence);
     }
 
     @Override
     public void delete(Document document) {
         UUID uuid = UUID.fromString(document.getId());
-        DocumentPersistent documentPersistent = documentJpaRepository.findById(uuid)
+        DocumentPersistence documentPersistence = documentJpaRepository.findById(uuid)
             .orElseThrow();
-        documentJpaRepository.delete(documentPersistent);
+        documentJpaRepository.delete(documentPersistence);
     }
 
     @Override
     public Optional<Document> findById(String id) {
         UUID uuid = UUID.fromString(id);
         return documentJpaRepository.findById(uuid)
-            .map(DocumentPersistent::toDomain);
+            .map(DocumentPersistence::toDomain);
     }
 }

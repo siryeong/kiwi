@@ -1,4 +1,4 @@
-package com.davi.kiwi.infra.mysql.persistent;
+package com.davi.kiwi.infra.mysql.persistence;
 
 import com.davi.kiwi.domain.entity.Document;
 import jakarta.persistence.Entity;
@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name = "document")
-public class DocumentPersistent {
+public class DocumentPersistence {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -28,7 +28,7 @@ public class DocumentPersistent {
     private UUID parentId;
     private UUID latestVersionId;
 
-    public static DocumentPersistent from(Document document) {
+    public static DocumentPersistence from(Document document) {
         UUID id = Optional.ofNullable(document.getId())
             .map(UUID::fromString)
             .orElse(null);
@@ -36,7 +36,7 @@ public class DocumentPersistent {
         UUID parentId = UUID.fromString(document.getParentId());
         UUID latestVersionId = UUID.fromString(document.getLatestVersionId());
 
-        return DocumentPersistent.builder()
+        return DocumentPersistence.builder()
             .id(id)
             .spaceId(spaceId)
             .parentId(parentId)
