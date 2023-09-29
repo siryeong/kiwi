@@ -21,6 +21,10 @@ spring:
         format_sql: true
     database: mysql
     database-platform: org.hibernate.dialect.MySQL8Dialect
+
+jwt:
+  secret-key: leu8xPUR967rEHupcyAby68ZYbKoFNES
+  token-validity-days: 7
 ---
 spring:
   config:
@@ -37,3 +41,6 @@ spring:
       ddl-auto: update
     database: mysql
     database-platform: org.hibernate.dialect.MySQL8Dialect
+jwt:
+  secret-key: ${JWT_SECRET_KEY}
+  token-validity-days: ${JWT_TOKEN_VALIDITY_DAYS}

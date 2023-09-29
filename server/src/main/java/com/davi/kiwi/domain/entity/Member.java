@@ -1,12 +1,13 @@
 package com.davi.kiwi.domain.entity;
 
+import java.io.Serializable;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class Member {
+public class Member implements Serializable {
 
     private String id;
     private String email;
