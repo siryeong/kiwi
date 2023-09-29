@@ -10,4 +10,6 @@ public interface MemberRepository {
     void delete(Member member);
 
     Optional<Member> findById(String id);
+
+    Optional<Member> findByEmail(String email);
 }

@@ -1,5 +1,8 @@
 package com.davi.kiwi.infra.security.service;
 
+import com.davi.kiwi.domain.entity.Member;
+import com.davi.kiwi.domain.entity.Token;
+import com.davi.kiwi.domain.entity.TokenType;
 import com.davi.kiwi.domain.service.TimeProvider;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -8,20 +11,20 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import java.security.Key;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 @Service
-public class JwtService {
+public class JwtProvider {
 
     private final String secretKey;
     private final long validityDays;
     private final TimeProvider timeProvider;
 
-    public JwtService(
+    public JwtProvider(
         @Value("${jwt.secret-key}") String secretKey,
         @Value("${jwt.token-validity-days}") long validityDays,
         TimeProvider timeProvider
@@ -31,20 +34,28 @@ public class JwtService {
         this.timeProvider = timeProvider;
     }
 
+    public Token generateToken(Member member) {
+        return generateToken(new HashMap<>(), member);
+    }
 
-    public String generateToken(Map<String, Object> claims, UserDetails member) {
-        return Jwts.builder()
+    public Token generateToken(Map<String, Object> claims, Member member) {
+        String token = Jwts.builder()
             .setClaims(claims)
-            .setSubject(member.getUsername())
+            .setSubject(member.getId())
             .setIssuedAt(new Date(timeProvider.currentTimestampMillis()))
             .setExpiration(new Date(timeProvider.currentTimestampMillis() + timeProvider.daysToMillis(validityDays)))
             .signWith(getSigningKey(), SignatureAlgorithm.HS256)
             .compact();
+
+        return Token.builder()
+            .value(token)
+            .type(TokenType.BEARER)
+            .build();
     }
 
-    public boolean validateToken(String token, UserDetails member) {
+    public boolean validateToken(String token, Member member) {
         final String extractedId = extractMemberId(token);
-        return (extractedId.equals(member.getUsername()) && !isTokenExpired(token));
+        return (extractedId.equals(member.getId()) && !isTokenExpired(token));
     }
 
     public String extractMemberId(String token) {

@@ -34,4 +34,10 @@ public class MemberRepositoryImpl implements MemberRepository {
         return memberJpaRepository.findById(uuid)
             .map(MemberPersistence::toDomain);
     }
+
+    @Override
+    public Optional<Member> findByEmail(String email) {
+        return memberJpaRepository.findByEmail(email)
+            .map(MemberPersistence::toDomain);
+    }
 }

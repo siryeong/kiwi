@@ -1,7 +1,7 @@
 package com.davi.kiwi.infra.security.service;
 
+import com.davi.kiwi.application.service.MemberService;
 import com.davi.kiwi.domain.entity.Member;
-import com.davi.kiwi.domain.repository.MemberRepository;
 import com.davi.kiwi.infra.security.adapter.MemberDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,12 +13,11 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class MemberDetailsService implements UserDetailsService {
 
-    private final MemberRepository memberRepository;
+    private final MemberService memberService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Member member = memberRepository.findById(username)
-            .orElseThrow(() -> new UsernameNotFoundException("Member not found"));
+        Member member = memberService.getById(username);
         return new MemberDetails(member);
     }
 }

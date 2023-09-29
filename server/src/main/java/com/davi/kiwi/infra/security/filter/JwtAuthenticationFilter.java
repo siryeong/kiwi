@@ -1,6 +1,8 @@
 package com.davi.kiwi.infra.security.filter;
 
-import com.davi.kiwi.infra.security.service.JwtService;
+import com.davi.kiwi.application.service.MemberService;
+import com.davi.kiwi.domain.entity.Member;
+import com.davi.kiwi.infra.security.service.JwtProvider;
 import com.davi.kiwi.infra.security.service.MemberDetailsService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -20,7 +22,8 @@ import org.springframework.web.filter.OncePerRequestFilter;
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    private final JwtService jwtService;
+    private final JwtProvider jwtProvider;
+    private final MemberService memberService;
     private final MemberDetailsService memberDetailsService;
 
     @Override
@@ -37,10 +40,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
         jwt = authorizationHeader.substring(7);
-        memberId = jwtService.extractMemberId(jwt);
+        memberId = jwtProvider.extractMemberId(jwt);
         if (memberId != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            Member member = memberService.getById(memberId);
             UserDetails memberDetails = memberDetailsService.loadUserByUsername(memberId);
-            if (jwtService.validateToken(jwt, memberDetails)) {
+            if (jwtProvider.validateToken(jwt, member)) {
                 UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                     memberDetails,
                     null,

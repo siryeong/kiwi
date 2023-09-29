@@ -28,4 +28,8 @@ public class Member implements Serializable {
         this.lastLoginTimestamp = lastLoginTimestamp;
     }
 
+    public void registeredAt(long joinTimestamp) {
+        this.joinTimestamp = joinTimestamp;
+        this.lastLoginTimestamp = joinTimestamp;
+    }
 }
