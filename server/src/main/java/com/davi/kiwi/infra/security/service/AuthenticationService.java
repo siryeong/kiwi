@@ -31,11 +31,8 @@ public class AuthenticationService {
     }
 
     public Token authenticate(String email, String password) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
         Member member = memberService.getByEmail(email);
-        if (!passwordEncoder.matches(password, member.getPassword())) {
-            throw new IllegalArgumentException("Password does not match");
-        }
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(member.getId(), password));
         return jwtProvider.generateToken(member);
     }
 }
