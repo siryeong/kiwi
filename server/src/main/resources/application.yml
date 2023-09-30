@@ -1,6 +1,9 @@
 spring:
   profiles:
     active: local
+server:
+  servlet:
+    context-path: /api
 ---
 spring:
   config:
@@ -24,7 +27,8 @@ spring:
 
 jwt:
   secret-key: KQEHpNA70iV6JDbUXytSI2y7mzjm1eeaXHTxvSHvKbHfaHbqwMZ6jmy6XftsgayN
-  validity-days: 7
+  expiration-millis: 86400000
+  refresh-expiration-millis: 864000000
 ---
 spring:
   config:
@@ -43,4 +47,5 @@ spring:
     database-platform: org.hibernate.dialect.MySQL8Dialect
 jwt:
   secret-key: ${JWT_SECRET_KEY}
-  validity-days: ${JWT_VALIDITY_DAYS}
+  expiration-millis: 86400000
+  refresh-expiration-millis: 864000000

@@ -11,8 +11,4 @@ public class SystemTimeProvider implements TimeProvider {
         return System.currentTimeMillis();
     }
 
-    @Override
-    public long daysToMillis(long days) {
-        return 1000 * 60 * 60 * 24 * days;
-    }
 }
