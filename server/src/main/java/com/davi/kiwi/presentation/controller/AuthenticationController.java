@@ -1,6 +1,6 @@
 package com.davi.kiwi.presentation.controller;
 
-import com.davi.kiwi.domain.entity.Token;
+import com.davi.kiwi.domain.entity.AuthToken;
 import com.davi.kiwi.infra.security.service.AuthenticationService;
 import com.davi.kiwi.presentation.dto.request.MemberAuthenticationRequest;
 import com.davi.kiwi.presentation.dto.request.MemberRegisterRequest;
@@ -24,15 +24,15 @@ public class AuthenticationController {
     public ResponseEntity<JwtAuthenticationResponse> register(
         @RequestBody @Valid MemberRegisterRequest request
     ) {
-        Token token = authenticationService.register(request.email(), request.name(), request.password());
-        return ResponseEntity.ok(JwtAuthenticationResponse.from(token));
+        AuthToken authToken = authenticationService.register(request.email(), request.name(), request.password());
+        return ResponseEntity.ok(JwtAuthenticationResponse.from(authToken));
     }
 
     @PostMapping("/login")
     public ResponseEntity<JwtAuthenticationResponse> login(
         @RequestBody @Valid MemberAuthenticationRequest request
     ) {
-        Token token = authenticationService.authenticate(request.email(), request.password());
-        return ResponseEntity.ok(JwtAuthenticationResponse.from(token));
+        AuthToken authToken = authenticationService.authenticate(request.email(), request.password());
+        return ResponseEntity.ok(JwtAuthenticationResponse.from(authToken));
     }
 }

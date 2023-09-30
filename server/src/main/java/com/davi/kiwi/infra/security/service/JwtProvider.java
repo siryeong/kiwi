@@ -1,8 +1,8 @@
 package com.davi.kiwi.infra.security.service;
 
 import com.davi.kiwi.domain.entity.Member;
-import com.davi.kiwi.domain.entity.Token;
-import com.davi.kiwi.domain.entity.TokenType;
+import com.davi.kiwi.domain.entity.AuthToken;
+import com.davi.kiwi.domain.entity.AuthTokenType;
 import com.davi.kiwi.domain.service.TimeProvider;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -33,7 +33,7 @@ public class JwtProvider {
         this.timeProvider = timeProvider;
     }
 
-    public Token generateToken(Member member) {
+    public AuthToken generateToken(Member member) {
         long now = timeProvider.currentTimestampMillis();
         String token = Jwts.builder()
             .setSubject(member.getId())
@@ -43,9 +43,9 @@ public class JwtProvider {
             .signWith(getSigningKey(), SignatureAlgorithm.HS256)
             .compact();
 
-        return Token.builder()
+        return AuthToken.builder()
             .value(token)
-            .type(TokenType.BEARER)
+            .type(AuthTokenType.BEARER)
             .build();
     }
 

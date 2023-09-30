@@ -6,12 +6,12 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class Token {
+public class AuthToken {
     private String value;
-    private TokenType type = TokenType.BEARER;
+    private AuthTokenType type = AuthTokenType.BEARER;
 
     @Builder
-    public Token(String value, TokenType type) {
+    public AuthToken(String value, AuthTokenType type) {
         this.value = value;
         this.type = type;
     }
