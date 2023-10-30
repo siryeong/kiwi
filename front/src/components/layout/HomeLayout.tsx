@@ -2,7 +2,7 @@ import { Header } from '@/components/layout/Header.tsx';
 import { Footer } from '@/components/layout/Footer.tsx';
 import { Outlet } from 'react-router-dom';
 
-export const PageLayout = () => {
+export const HomeLayout = () => {
   return (
     <div>
       <Header />
@@ -13,3 +13,5 @@ export const PageLayout = () => {
     </div>
   );
 };
+
+export default HomeLayout;

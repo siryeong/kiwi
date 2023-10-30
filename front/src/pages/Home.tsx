@@ -1,4 +1,6 @@
-export const Home = () => {
+import { Link } from 'react-router-dom';
+
+const Home = () => {
   return (
     <>
       <div className="py-24">
@@ -7,9 +9,9 @@ export const Home = () => {
             <h2 className="text-2xl font-semibold mb-2">Kiwi</h2>
             <p className="text-gray-600">키위에 오신 것을 환영합니다.</p>
             <p className="mt-4 text-center">
-              <a href="#" className="text-blue-500 hover:underline">
+              <Link to="/signup" className="text-blue-500 hover:underline">
                 시작하기
-              </a>
+              </Link>
             </p>
           </div>
         </div>
@@ -17,3 +19,5 @@ export const Home = () => {
     </>
   );
 };
+
+export default Home;

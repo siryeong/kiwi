@@ -1,4 +1,4 @@
-export const Login = () => {
+const Login = () => {
   return (
     <>
       <div className="w-full max-w-sm mx-auto mt-24">
@@ -38,3 +38,5 @@ export const Login = () => {
     </>
   );
 };
+
+export default Login;

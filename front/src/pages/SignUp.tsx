@@ -1,4 +1,4 @@
-export const SignUp = () => {
+const SignUp = () => {
   return (
     <>
       <div className="w-full max-w-sm mx-auto mt-24">
@@ -46,3 +46,5 @@ export const SignUp = () => {
     </>
   );
 };
+
+export default SignUp;

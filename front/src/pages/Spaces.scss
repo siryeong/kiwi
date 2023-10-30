@@ -1,0 +1,16 @@
+.spaces-wrapper {
+  @apply flex flex-col items-center justify-center mt-12;
+
+  .title {
+    @apply text-2xl font-bold leading-7;
+  }
+
+  .space-list {
+    @apply flex flex-wrap justify-center mt-8;
+
+    .space-card {
+      @apply flex flex-col items-center justify-center w-64 h-64 m-4 bg-white rounded-lg shadow-md;
+      @apply hover:shadow-lg transition duration-150 ease-in-out hover:bg-gray-100;
+    }
+  }
+}

@@ -1,4 +1,4 @@
-import { TopNavigationBar } from '@/components/tailwind/TopNavigationBar.tsx';
+import { TopNavigationBar } from '@/components/navigation/TopNavigationBar.tsx';
 
 export const Header = () => {
   return (
@@ -7,3 +7,5 @@ export const Header = () => {
     </>
   );
 };
+
+export default Header;
